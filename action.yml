@@ -1,0 +1,31 @@
+name: "Security Scan Action"
+description: "Run Horusec, Dependency-Check, OWASP ZAP, and Dastardly scans and upload results to DefectDojo."
+author: "TinyCrows"
+inputs:
+  defectdojo_url:
+    description: "DefectDojo API URL"
+    required: true
+  defectdojo_api_key:
+    description: "DefectDojo API Key"
+    required: true
+  engagement_id:
+    description: "Engagement ID in DefectDojo"
+    required: true
+  repo_token:
+    description: "GitHub Token"
+    required: true
+  target_url:
+    description: "Target URL for DAST scans (OWASP ZAP, Dastardly)"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.defectdojo_url }}
+    - ${{ inputs.defectdojo_api_key }}
+    - ${{ inputs.engagement_id }}
+    - ${{ inputs.repo_token }}
+    - ${{ inputs.target_url }}
+branding:
+  icon: "shield"
+  color: "blue"
